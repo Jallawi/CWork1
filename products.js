@@ -2,80 +2,80 @@ var lessons = [
     {
         "id":101,
         "subject":"ENGLISH",
-        "location":"BAUCHI",
-        "price":280,
+        "location":"LEICESTER",
+        "price":20,
         "availableInventory":5,
         "image": "images/eng.jfif"
     },
     {
         "id":102,
         "subject":"MATHEMATICS",
-        "location":"LAGOS",
-        "price":215,
+        "location":"LONDON",
+        "price":25,
         "availableInventory":5,
         "image":"images/maths.jfif"   
     },
     {
         "id":103,
         "subject":"CHEMISTRY",
-        "location":"ABUJA",
-        "price":230,
+        "location":"COVENTRY",
+        "price":23,
         "availableInventory":5,
         "image":"images/chem.jfif"   
     },
     {
         "id":104,
         "subject":"PHYSICS",
-        "location":"KWARA",
-        "price":110,
+        "location":"SHEFFIELD",
+        "price":15,
         "availableInventory":5,
         "image":"images/physics.jfif"   
     },
     {
         "id":105,
         "subject":"ARABIC",
-        "location":"SOKOTO",
-        "price":150,
+        "location":"WOLVERHAMPTON",
+        "price":10,
         "availableInventory":5,
         "image":"images/arabic.jfif"   
     },
     {
         "id":106,
         "subject":"ECONOMICS",
-        "location":"KANO",
-        "price":200,
+        "location":"CHELSEA",
+        "price":30,
         "availableInventory":5,
         "image":"images/econs.jfif"   
     },
     {
         "id":107,
         "subject":"MUSIC",
-        "location":"OSUN",
-        "price":110,
+        "location":"LEEDS",
+        "price":05,
         "availableInventory":5,
         "image":"images/music.jfif"   
     },
     {
         "id":108,
         "subject":"PROGRAMMING",
-        "location":"OGUN",
-        "price":120,
+        "location":"SOUTH HAMPTON",
+        "price":12,
         "availableInventory":5,
         "image":"images/programming.jfif"   
     },
     {
         "id":109,
         "subject":"AGRIC SCIENCE",
-        "location":"KATSINA",
-        "price":180,
+        "location":"PLYMOUTH",
+        "price":18,
         "availableInventory":5,
         "image":"images/agric.jfif"   
     },
     {
         "id":110,
         "subject":"SOCIAL STUDIES",
-        "location":"KADUNA",
-        "price":100,
+        "location":"MANCHESTER",
+        "price":10,
         "availableInventory":5,
         "image":"images/social.jfif"   
     }

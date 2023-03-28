@@ -11,3 +11,36 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Lesson 01</title>
 </head>
+
+<body>
+    <body>
+        <div id="root">
+            <header>
+                <!-- text to center -->
+                <h1 v-text="sitename" class="text-center"></h1>
+                <button v-on:click='showCheckout'  v-show=" cartItemCount > 0" v-if="buttonvalue()" >
+                     {{cartItemCount}}
+    
+                    <span class="fas fa-cart-plus"></span> Checkout
+                    
+                </button>
+               <div style="display: flex; flex-wrap: wrap; " >
+                <div v-for="lesson in cart2" v-show="showCartItems" >
+                     <h3 v-text="lesson.title"></h3>
+                    <figure>
+                        <img v-bind:src="lesson.image" height="100" width="100">
+                    </figure>
+                    <p>Description:{{lesson.description}}</p>
+                    <p>Location:{{lesson.location}}</p>
+                    <p>Price:$ {{lesson.price}}</p>
+                    <p>Spaces: only {{lesson.availableInventory - cartCount(lesson.id)}} are left!</p>
+                    <button v-on:click='removeproduct(lesson)' v-if='canAddToCart(lesson)'>Remove from cart</button> 
+    
+    
+                    <button disabled="disable" v-else></button>
+                    </div>
+    
+                </div> 
+    
+    
+            </header>

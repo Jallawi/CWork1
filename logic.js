@@ -1,82 +1,84 @@
-var lessons = [
-    {
-        "id":101,
-        "subject":"ENGLISH",
-        "location":"BAUCHI",
-        "price":280,
-        "availableInventory":5,
-        "image": "images/eng.jfif"
+var app = new Vue({
+    el: '#app',
+    data: {
+        headername: 'After School Club',
+        lessons: [],
+        cart: [],
+        showProduct: false,
+       
+        sort: 'ascending',
+        type: '',
+        user: {
+            name: '',
+            number: ''
+        }
     },
-    {
-        "id":102,
-        "subject":"MATHEMATICS",
-        "location":"LAGOS",
-        "price":215,
-        "availableInventory":5,
-        "image":"images/maths.jfif"   
+    methods: {
+        addItemToCart(lesson) {
+            this.lessons.find(item => item.id == lesson.id).availableInventory -= 1;
+            
+            this.cart.push({ cartId: (this.cart.length + 1), ...lesson });
+            
+            
+        },
+        deleteFromCart(lesson) {
+            if (confirm('DELETE LESSON?')) {
+               
+                this.cart = this.cart.filter(item => item.cartId !== lesson.cartId)
+            }
+             
+        },
+        showCheckout() {
+            this.showProduct = !this.showProduct;
+        },
+        submit() {
+            if (this.user.name(this.user.name)) {
+                alert('ORDER SUBMITTED.')
+                console.log(this.user);
+            }
+        },
+        
     },
-    {
-        "id":103,
-        "subject":"CHEMISTRY",
-        "location":"ABUJA",
-        "price":230,
-        "availableInventory":5,
-        "image":"images/chem.jfif"   
+    computed: {
+        total() {
+            return this.cart.length > 0 ? this.cart.map(item => item.price).reduce((acc, cur) => acc + cur) : 0;
+        },
+        sortedLessons() {
+            switch (this.type) {
+                case 'subject':
+                    return this.lessons.sort((a, b) => {
+                        switch (this.sort) {
+                            case 'ascending':
+                                return a.subject.toUpperCase() > b.subject.toUpperCase() ? 1 : -1;
+                            default:
+                                return a.subject.toUpperCase() < b.subject.toUpperCase() ? 1 : -1;
+                        }
+                    })
+                case 'location':
+                    return this.lessons.sort((a, b) => {
+                        switch (this.sort) {
+                            case 'ascending':
+                                return a.location.toUpperCase() > b.location.toUpperCase() ? 1 : -1;
+                            default:
+                                return a.location.toUpperCase() < b.location.toUpperCase() ? 1 : -1;
+                        }
+                    })
+                case 'price':
+                    return this.lessons.sort((a, b) => {
+                        return this.sort == 'ascending' ? a.price - b.price : b.price - a.price;
+                    })
+                case 'space':
+                    return this.lessons.sort((a, b) => {
+                        return this.sort == 'ascending' ? a.availableInventory - b.availableInventory : b.availableInventory - a.availableInventory;
+                    })
+                default:
+                    return this.lessons.sort((a, b) => {
+                        return this.sort == 'ascending' ? a.id - b.id : b.id - a.id;
+                    })
+            }
+        }
     },
-    {
-        "id":104,
-        "subject":"PHYSICS",
-        "location":"KWARA",
-        "price":110,
-        "availableInventory":5,
-        "image":"images/physics.jfif"   
-    },
-    {
-        "id":105,
-        "subject":"ARABIC",
-        "location":"SOKOTO",
-        "price":150,
-        "availableInventory":5,
-        "image":"images/arabic.jfif"   
-    },
-    {
-        "id":106,
-        "subject":"ECONOMICS",
-        "location":"KANO",
-        "price":200,
-        "availableInventory":5,
-        "image":"images/econs.jfif"   
-    },
-    {
-        "id":107,
-        "subject":"MUSIC",
-        "location":"OSUN",
-        "price":110,
-        "availableInventory":5,
-        "image":"images/music.jfif"   
-    },
-    {
-        "id":108,
-        "subject":"PROGRAMMING",
-        "location":"OGUN",
-        "price":120,
-        "availableInventory":5,
-        "image":"images/programming.jfif"   
-    },
-    {
-        "id":109,
-        "subject":"AGRIC SCIENCE",
-        "location":"KATSINA",
-        "price":180,
-        "availableInventory":5,
-        "image":"images/agric.jfif"   
-    },
-    {
-        "id":110,
-        "subject":"SOCIAL STUDIES",
-        "location":"KADUNA",
-        "price":100,
-        "availableInventory":5,
-        "image":"images/social.jfif"   
+    created() {
+        this.lessons = lessons
     }
-]
+});

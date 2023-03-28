@@ -125,4 +125,159 @@
                         <p>
                             <b>Last Name:</b>
                             <input v-model="order.lastName" placeholder="ENTER YOUR LAST NAME!" />
-                        </p>                 
+                        </p>
+                        
+                        
+
+                        <p>
+                            <b>Phone:</b>
+                            <input type ="number"  v-model="order.phone" placeholder="ENTER UR PHONE NUMBER!" />
+                        </p>
+        
+        
+        
+                        <h2>Order Information</h2>
+                       
+                       <p>First Name: {{order.firstName}}</p>
+                        
+                        <p>Last Name: {{order.lastName}}</p>
+                    
+                        <p>Phone number: {{order.phone}}</p>
+        
+                        <button v-on:click="submitForm">Place Order</button>
+                    </div>
+                </main>
+            </div>
+        
+            </div>
+            <script type="text/javascript">
+                var myLesson = new Vue({
+                    el: '#root',
+                    data: {
+        
+                        sitename: 'WELCOME TO Jallawi AFTER SCHOOL .',
+                        lessons: myArr,
+        
+                        display: false,
+                        
+                        cart: [],
+                        cart2: [],
+                        showLesson: true,
+                        showCartItems:false,
+        
+                        order: {
+                            firstName: '',
+                            lastName: '',
+                            phone: '',
+                           
+                        },
+    
+                        orderInfo:{}
+        
+    
+                    },
+    
+                  
+    
+                    
+                    methods: {
+                        addToCart(lesson) {
+                            this.cart.push(lesson.id);
+                            this.cart2.push(lesson);
+        
+        
+        
+                        },
+        
+        
+                        sortedsubject() {
+                            function compare(x, y) {
+                                if (x.title > y.title)
+                                    return 1;
+                               else{
+                                   return -1;
+                               }
+                            
+        
+        
+                            }
+                            return this.lessons.sort(compare);
+        
+                        },
+    
+                        sortedinventory() {
+                            function compare(x, y) {
+                                if (x.availableInventory > y.availableInventory)
+                                    return 1;
+                                else{
+                                    return -1;
+                                }
+        
+        
+                            }
+                            return this.lessons.sort(compare);
+        
+                        },
+                        sortedlocation() {
+                            function compare(x, y) {
+                                if (x.location > y.location)
+                                    return 1;
+                               else{
+                                   return -1;
+                               }
+        
+        
+                            }
+                            return this.lessons.sort(compare);
+        
+                        },
+        
+                        sortedprice() {
+                            function compare(x, y) {
+                                if (x.price > y.price)
+                                    return 1;
+                                else{
+                                    return -1
+                                };
+        
+                            }
+                            return this.lessons.sort(compare);
+        
+                        },
+                        sortingasn() {
+                            function compare(a, b) {
+                                if (a.title > b.title)
+                                    return 1;
+                               else{
+                                   return -1;
+                               }
+        
+        
+                            }
+                            return this.lessons.sort(compare);
+        
+                        },
+    
+    
+                        sortingdesn() {
+                            function compare(a, b) {
+                                if (a.title < b.title)
+                                    return 1;
+                               else{
+                                   return -1
+                               }
+        
+        
+                            }
+                            return this.lessons.sort(compare);
+        
+                        },
+                       
+        
+        
+                        showCheckout() {
+                            this.showLesson = this.showLesson ? false : true;
+                            this.showCartItems=this.showCartItems ? false:true;
+                            
+        
+                        },

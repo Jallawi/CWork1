@@ -281,3 +281,102 @@
                             
         
                         },
+           
+                        
+                        submitForm(l, b, c) {
+                        if (this.order.firstName == "" && this.order.lastName == "" && this.order.phone == "") {
+    
+                             alert('PLEASE ENTER YOUR DETAILS FOR ORDERS')
+    
+                        }
+                        if (this.order.firstName == "") {
+                             alert('PLEASE ENTER YOUR NAME')
+                        }
+                        if (this.order.lastName == "") {
+                            return alert('PLEASE ENTER YOU LASTNAME')
+                        }
+                        if (this.order.phone == "") {
+                            return alert('PLEASE ENTER YOUR MOBILE NUM OR PHONE', { background: 'black' });
+                        }
+                        else {
+    
+    
+                            this.order.firstName = "";
+                            this.order.lastName = "";
+                            this.order.phone = "";
+    
+                            return alert(' you are succesfully placed the order')
+    
+    
+                        }
+    
+                    },
+                   
+                  
+
+                
+
+                    
+                    canAddToCart(lesson) {
+                        return lesson.availableInventory > this.cartCount(lesson.id);
+                    },
+                    cartCount(id) {
+    
+                        let count = 0;
+                        for (let i = 0; i < this.cart.length; i++) {
+                            if (this.cart[i] === id) {
+                                count++;
+    
+    
+                            }
+                        }
+                        return count;
+    
+    
+                    },
+    
+                    buttonvalue() {
+                        if (this.cart.length > 0) {
+                            return true;
+                        } else {
+    
+                            return false;
+    
+                        }
+                    },
+                    removeproductfrominve()
+                    {
+                        if(this.cart.length <= 0)
+                        {
+                            return true;
+                        }
+                        else{
+                            false;
+                        }
+    
+    
+                    },
+    
+    
+    
+                    removeproduct(lesson) {
+                        this.cart2.pop(lesson);
+                        this.cart.pop(lesson);
+    
+                    }
+                },
+                computed: {
+                    cartItemCount() {
+    
+                        return this.cart.length;
+                    }
+                },
+    
+    
+    
+            });
+    
+    
+        </script>
+</body>
+</html>

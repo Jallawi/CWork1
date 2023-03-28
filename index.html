@@ -1,382 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="lessons.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+<html>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <title>Lesson 01</title>
+<head>
+    <title>AFTER SCHOOL CLUB</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="styling.css">
+	
+	<style>
+body {
+  background-color: grey;
+}
+
+@media screen and (min-width: 480px) {
+  body {
+    background-color: #fff;
+  }
+}
+aside {
+    float: right;
+}
+</style>
+</head>
+
 </head>
 
 <body>
-    <body>
-        <div id="root">
+    <div id="app">
+        <div class="package">
             <header>
-                <!-- text to center -->
-                <h1 v-text="sitename" class="text-center"></h1>
-                <button v-on:click='showCheckout'  v-show=" cartItemCount > 0" v-if="buttonvalue()" >
-                     {{cartItemCount}}
-    
-                    <span class="fas fa-cart-plus"></span> Checkout
-                    
-                </button>
-               <div style="display: flex; flex-wrap: wrap; " >
-                <div v-for="lesson in cart2" v-show="showCartItems" >
-                     <h3 v-text="lesson.title"></h3>
-                    <figure>
-                        <img v-bind:src="lesson.image" height="100" width="100">
-                    </figure>
-                    <p>Description:{{lesson.description}}</p>
-                    <p>Location:{{lesson.location}}</p>
-                    <p>Price:$ {{lesson.price}}</p>
-                    <p>Spaces: only {{lesson.availableInventory - cartCount(lesson.id)}} are left!</p>
-                    <button v-on:click='removeproduct(lesson)' v-if='canAddToCart(lesson)'>Remove from cart</button> 
-    
-    
-                    <button disabled="disable" v-else></button>
-                    </div>
-    
-                </div> 
-    
-    
+                <h1 v-text="headername"></h1>
+                <button v-if="cart.length > 0" @click='showCheckout'> {{cart.length}} <span
+                        class="fas fa-cart-plus"></span>CHECKOUT</button>
             </header>
-            <main>
-    
-                <div v-if='showLesson'>
-                    <table>
-                        <td><b>Sort by::</b></td>
-    
-                        <tr>
-                            <td> <input type="radio" name="a"
-                                        v-on:click="sortedsubject(lessons.title)">
-                                        Subject
-                            </td>
-                        <tr>
-                            <td><input type="radio" name="a"
-                                        v-on:click="sortedprice(lessons.price)">
-                                        Price
-                            </td>
-                        </tr>
-    
-                        <tr>
-                            <td><input type="radio" name="a"
-                                        v-on:click="sortedinventory(lessons.availableInventory)">
-                                        Availability
-                                    </td>
-                        </tr>
-                        <tr>
-                            <td><input type="radio" name="a"
-                                        v-on:click="sortedlocation(lessons.location)">
-                                        Location
-                                    </td>
-                        </tr>
-    
-                    </table>
-                    <div>
-                        <br>
-                        <table>
-                            <tr>
-                                <td><input type="radio" name="b"
-                                    v-on:click="sortingasn(lessons.title)">
-                                    Ascending
-                        </td>
-                               
-                            </tr>
-                            <tr>
-                                <td><input type="radio" name="b"
-                                    v-on:click="sortingdesn(lessons.title)">
-                                    Descending
-                        </td>
-                            </tr>
-                        </table>
-                    </div>
+        </div>
+        <hr>
+        <div class="package">
+            <div class="base">
+                <aside>
+				<br><br>
+                    <h4>SORT BY</h4>
+					
+                    <ul>
+  
+  <input type="radio" id="subject" name="sort" value="subject"  @click="type = 'subject'">
+  <label for="subject">SUBJECT</label><br>
+  <input type="radio" id="location" name="sort" value="location"  @click="type = 'location'">
+  <label for="locaton">LOCATION</label><br>
+  <input type="radio" id="price" name="sort" value="price"  @click="type = 'price'">
+  <label for="price">PRICE</label><br>
+  
+                    </ul>
+					
+					
+					
+                </aside>
+                <main>
+                    <div v-if='!showProduct'>
+                        <div class="tbar">
+                            <h1>LESSONS</h1>
+                            <select v-model="sort" id="sortby">
+                                <option value="descending">DESCENDING</option>
+                                <option value="ascending">ASCENDING</option>
 
-
-                    <div style="display: flex; flex-wrap: wrap;">
-                        <div v-for="lesson in lessons" >
-                          <img v-bind:src="lesson.image" height="300" width="300" >
-                          <div class="card-body"></div>
-                           <h2 v-text="lesson.title"class="card-title" ></h2>
-                            <p>Description: {{lesson.description}}</p>
-                            <p class="card-text" >Location:{{lesson.location}}</p>
-                            <p class="card-text">Price: $ {{lesson.price}}</p>
-                            <p class="card-text">Spaces:  {{lesson.availableInventory - cartCount(lesson.id)}} available!</p>
-        
-        
-                            <button  class="btn btn-primary" @click="display = true" v-on:click='addToCart(lesson)' v-if='canAddToCart(lesson)'>Add
-                                to cart</button>
-        
-                            <button v-else>Add to cart</button>
-        
-                          </div>
-                         </div>
-                        
+                            </select>
+							
+                        </div>
+                        <hr>
+                        <div class="lessons">
+                            <div v-for="(lessons, index) in sortedLessons" :key="`lesson--${index}`"
+                                class="lessons_item">
+                                
+                                <figure><img v-bind:src="lessons.image"></figure>
+                                <p>Subject: {{ lessons.subject }}</p>
+                                <p>Location: {{ lessons.location }}</p>
+                                <p>Price: {{ lessons.price }}</p>
+                                <p>Spaces: {{lessons.availableInventory}}</p>
+                                <button v-on:click='addItemToCart(lessons)' :disabled="!lessons.availableInventory" class="button">Add to
+                                    cart</button>
+                                <span v-if="lessons.availableInventory">{{lessons.availableInventory + ' ' + 'SPACES LEFT'}}</span>
+                                <span v-else>NO SPACE AVAILABLE</span>
+                            </div>
+                        </div>
                     </div>
                     <div v-else>
-                        <h2 style="text-align: center;">Checkout</h2>
-                        <p>
-                            <b>First Name:</b>
-                            <input v-model="order.firstName" placeholder="ENTER YOUR FIRST NAME!" required />
-                        </p>
-                        <p>
-                            <b>Last Name:</b>
-                            <input v-model="order.lastName" placeholder="ENTER YOUR LAST NAME!" />
-                        </p>
-                        
-                        
-
-                        <p>
-                            <b>Phone:</b>
-                            <input type ="number"  v-model="order.phone" placeholder="ENTER UR PHONE NUMBER!" />
-                        </p>
-        
-        
-        
-                        <h2>Order Information</h2>
-                       
-                       <p>First Name: {{order.firstName}}</p>
-                        
-                        <p>Last Name: {{order.lastName}}</p>
-                    
-                        <p>Phone number: {{order.phone}}</p>
-        
-                        <button v-on:click="submitForm">Place Order</button>
+                        <div class="package">
+                            <div class="tbar">
+                                <button @click="showCheckout"><span class="fas fa-chevron-left"></span> Go back</button>
+                              
+								<h4>TOTAL AMOUNT:₦{{total}}</h4>
+                            </div>
+                            <h4>Cart List</h4>
+                            <div class="cart">
+                                <div class="cart_item">
+                                    <div class="position">Image</div>
+                                    <div>Subject</div>
+                                    <div>Location</div>
+                                    <div>Price</div>
+                                    <div style="width: auto;">Action</div>
+                                </div>
+                                <hr style="width: 100%">
+                                <div class="cart_item" v-for="(item, index) in cart" :key="`cart--${index}`">
+                                    <div class="positon"><img :src="item.image" alt=""></div>
+                                    <div>{{item.subject}}</div>
+                                    <div>{{item.location}}</div>
+                                    <div>₦{{item.price}}</div>
+                                    <div style="width: auto;"><button @click="deleteFromCart(item)"><i style="color:red;"
+                                                class="fa fa-minus" aria-hidden="true"></i></button></div>
+                                </div>
+                                <div v-if="!cart.length > 0" class="cart_item"
+                                    style="background-color: transparent; padding: 20px;">
+                                    <div style="text-align: center; color: gray; font-size: 20px; font-weight: bold;">
+                                        List Empty</div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h3>CUSTOMER INFORMATION</h3>
+                                <form>
+                                    <div>
+                                        <label for="name">Name:</label>
+                                        <input v-model="user.name" type="text" placeholder="Enter full name" required >
+                                    </div>
+                                    <div>
+                                        <label for="phone">Phoneno:</label>
+                                        <input v-model="user.number" type="tel" placeholder="Enter mobile number" required>
+                                    </div>
+                                    <input type="submit" value="Checkout">
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </main>
             </div>
+        </div>
+    </div>
+    
+    <script src="./products.js"></script>
+    <script src="./logic.js">
         
-            </div>
-            <script type="text/javascript">
-                var myLesson = new Vue({
-                    el: '#root',
-                    data: {
-        
-                        sitename: 'WELCOME TO Jallawi AFTER SCHOOL .',
-                        lessons: myArr,
-        
-                        display: false,
-                        
-                        cart: [],
-                        cart2: [],
-                        showLesson: true,
-                        showCartItems:false,
-        
-                        order: {
-                            firstName: '',
-                            lastName: '',
-                            phone: '',
-                           
-                        },
-    
-                        orderInfo:{}
-        
-    
-                    },
-    
-                  
-    
-                    
-                    methods: {
-                        addToCart(lesson) {
-                            this.cart.push(lesson.id);
-                            this.cart2.push(lesson);
-        
-        
-        
-                        },
-        
-        
-                        sortedsubject() {
-                            function compare(x, y) {
-                                if (x.title > y.title)
-                                    return 1;
-                               else{
-                                   return -1;
-                               }
-                            
-        
-        
-                            }
-                            return this.lessons.sort(compare);
-        
-                        },
-    
-                        sortedinventory() {
-                            function compare(x, y) {
-                                if (x.availableInventory > y.availableInventory)
-                                    return 1;
-                                else{
-                                    return -1;
-                                }
-        
-        
-                            }
-                            return this.lessons.sort(compare);
-        
-                        },
-                        sortedlocation() {
-                            function compare(x, y) {
-                                if (x.location > y.location)
-                                    return 1;
-                               else{
-                                   return -1;
-                               }
-        
-        
-                            }
-                            return this.lessons.sort(compare);
-        
-                        },
-        
-                        sortedprice() {
-                            function compare(x, y) {
-                                if (x.price > y.price)
-                                    return 1;
-                                else{
-                                    return -1
-                                };
-        
-                            }
-                            return this.lessons.sort(compare);
-        
-                        },
-                        sortingasn() {
-                            function compare(a, b) {
-                                if (a.title > b.title)
-                                    return 1;
-                               else{
-                                   return -1;
-                               }
-        
-        
-                            }
-                            return this.lessons.sort(compare);
-        
-                        },
-    
-    
-                        sortingdesn() {
-                            function compare(a, b) {
-                                if (a.title < b.title)
-                                    return 1;
-                               else{
-                                   return -1
-                               }
-        
-        
-                            }
-                            return this.lessons.sort(compare);
-        
-                        },
-                       
-        
-        
-                        showCheckout() {
-                            this.showLesson = this.showLesson ? false : true;
-                            this.showCartItems=this.showCartItems ? false:true;
-                            
-        
-                        },
-           
-                        
-                        submitForm(l, b, c) {
-                        if (this.order.firstName == "" && this.order.lastName == "" && this.order.phone == "") {
-    
-                             alert('PLEASE ENTER YOUR DETAILS FOR ORDERS')
-    
-                        }
-                        if (this.order.firstName == "") {
-                             alert('PLEASE ENTER YOUR NAME')
-                        }
-                        if (this.order.lastName == "") {
-                            return alert('PLEASE ENTER YOU LASTNAME')
-                        }
-                        if (this.order.phone == "") {
-                            return alert('PLEASE ENTER YOUR MOBILE NUM OR PHONE', { background: 'black' });
-                        }
-                        else {
-    
-    
-                            this.order.firstName = "";
-                            this.order.lastName = "";
-                            this.order.phone = "";
-    
-                            return alert(' you are succesfully placed the order')
-    
-    
-                        }
-    
-                    },
-                   
-                  
-
-                
-
-                    
-                    canAddToCart(lesson) {
-                        return lesson.availableInventory > this.cartCount(lesson.id);
-                    },
-                    cartCount(id) {
-    
-                        let count = 0;
-                        for (let i = 0; i < this.cart.length; i++) {
-                            if (this.cart[i] === id) {
-                                count++;
-    
-    
-                            }
-                        }
-                        return count;
-    
-    
-                    },
-    
-                    buttonvalue() {
-                        if (this.cart.length > 0) {
-                            return true;
-                        } else {
-    
-                            return false;
-    
-                        }
-                    },
-                    removeproductfrominve()
-                    {
-                        if(this.cart.length <= 0)
-                        {
-                            return true;
-                        }
-                        else{
-                            false;
-                        }
-    
-    
-                    },
-    
-    
-    
-                    removeproduct(lesson) {
-                        this.cart2.pop(lesson);
-                        this.cart.pop(lesson);
-    
-                    }
-                },
-                computed: {
-                    cartItemCount() {
-    
-                        return this.cart.length;
-                    }
-                },
-    
-    
-    
-            });
-    
-    
-        </script>
+    </script>
 </body>
-</html> 
+
+</html>

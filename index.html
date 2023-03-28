@@ -44,3 +44,35 @@
     
     
             </header>
+            <main>
+    
+                <div v-if='showLesson'>
+                    <table>
+                        <td><b>Sort by::</b></td>
+    
+                        <tr>
+                            <td> <input type="radio" name="a"
+                                        v-on:click="sortedsubject(lessons.title)">
+                                        Subject
+                            </td>
+                        <tr>
+                            <td><input type="radio" name="a"
+                                        v-on:click="sortedprice(lessons.price)">
+                                        Price
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td><input type="radio" name="a"
+                                        v-on:click="sortedinventory(lessons.availableInventory)">
+                                        Availability
+                                    </td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="a"
+                                        v-on:click="sortedlocation(lessons.location)">
+                                        Location
+                                    </td>
+                        </tr>
+    
+                    </table>

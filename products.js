@@ -1,4 +1,4 @@
-var lessons = [
+var lesson = [
     {
         "id":101,
         "subject":"ENGLISH",
